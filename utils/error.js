@@ -1,7 +1,7 @@
-const error = (msg, status) => {
+const createError = (msg, status) => {
   const e = new Error(msg);
   e.status = status;
   return e;
 };
 
-module.exports = error;
+module.exports = createError;
