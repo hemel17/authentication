@@ -31,7 +31,7 @@ const userSchema = new Schema(
       trim: true,
       match: [
         /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-        "Please provide a valid email address",
+        "Please provide a valid phone number",
       ],
     },
     role: {
@@ -51,6 +51,10 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
+// * index for frequently queried fields
+userSchema.index({ email: 1 });
+userSchema.index({ resetPasswordToken: 1 });
+
 // * hash password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
@@ -65,3 +69,10 @@ userSchema.pre("save", async function (next) {
 });
 
 // * check if the password is correct
+userSchema.methods.checkPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
+const User = model("User", userSchema);
+
+module.exports = User;
