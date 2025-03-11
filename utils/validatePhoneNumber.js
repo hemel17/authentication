@@ -1,4 +1,4 @@
-function isValidPhoneNumber(phoneNumber) {
+const isValidPhoneNumber = (phoneNumber) => {
   // * Remove any spaces, dashes, or parentheses
   const cleanedNumber = phoneNumber.replace(/[\s\-()]/g, "");
 
@@ -7,6 +7,6 @@ function isValidPhoneNumber(phoneNumber) {
 
   // * Check if the number matches any of the valid patterns
   return patterns.some((pattern) => pattern.test(cleanedNumber));
-}
+};
 
 module.exports = isValidPhoneNumber;
