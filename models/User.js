@@ -73,6 +73,16 @@ userSchema.methods.checkPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
+// * generate verification code
+userSchema.methods.generateVerificationCode = function () {
+  const verificationCode = Math.floor(10000 + Math.random() * 90000);
+
+  this.verificationCode = verificationCode;
+  this.verificationCodeExpire = Date.now() + 5 * 1000 * 60;
+
+  return verificationCode;
+};
+
 const User = model("User", userSchema);
 
 module.exports = User;

@@ -36,6 +36,16 @@ const checkRegistrationAttempts = async (email, phone) => {
   }
 };
 
+// todo : send verification code
+const sendVerificationCode = (
+  verificationMethod,
+  verificationCode,
+  name,
+  email,
+  phone,
+  res
+) => {};
+
 // * generate and send verification code
 const sendVerification = async (user, verificationMethod, res) => {
   const verificationCode = await user.generateVerificationCode();
